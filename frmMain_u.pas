@@ -3,7 +3,7 @@
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Winapi.Windows, Winapi.Messages, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.WinXCalendars,
   Vcl.StdCtrls, Vcl.WinXPickers, clsRodjendanManager_u, System.DateUtils,
   System.Generics.Collections, System.UITypes, Vcl.Menus, FileCtrl;
@@ -67,6 +67,8 @@ type
     procedure mnoImportClick(Sender: TObject);
     procedure mnoExportClick(Sender: TObject);
     procedure mnoSaveClick(Sender: TObject);
+    procedure btnIzvestaj1Click(Sender: TObject);
+    procedure btnIzvestaj2Click(Sender: TObject);
   private
     { Private declarations }
     procedure refreshComboBox;
@@ -82,7 +84,7 @@ var
 implementation
 
 uses
-  clsRodjendan_u, frmUpdate_u;
+  clsRodjendan_u, frmUpdate_u, System.SysUtils;
 
 {$R *.dfm}
 
@@ -140,6 +142,56 @@ begin
     end;
 end;
 
+procedure TfrmMain.btnIzvestaj1Click(Sender: TObject);
+var
+  dicIzvestaj : TDictionary<Byte, Integer>;
+  strTekst : String;
+  intMesec : Integer;
+  fstFormatSettings : TFormatSettings;
+begin
+  dicIzvestaj := rdmRodjendanManager.izvestajMesecMax;
+  strTekst := '';
+  fstFormatSettings := TFormatSettings.Create;
+
+  for intMesec := 1 to 12 do
+  begin
+    if dicIzvestaj.ContainsKey(intMesec) then
+      strTekst := Concat(strTekst, fstFormatSettings.LongMonthNames[intMesec],
+         ' - ',  IntToStr(dicIzvestaj[intMesec]), #13);
+  end;
+
+  dicIzvestaj.Destroy;
+
+  MessageDlg(strTekst, mtInformation,
+      [mbOk], 0, mbOk);
+end;
+
+procedure TfrmMain.btnIzvestaj2Click(Sender: TObject);
+var
+  dicIzvestaj : TDictionary<Byte, Integer>;
+  strTekst : String;
+  intMesec : Integer;
+  fstFormatSettings : TFormatSettings;
+begin
+  dicIzvestaj := rdmRodjendanManager.izvestajMesecMin;
+  strTekst := '';
+  fstFormatSettings := TFormatSettings.Create;
+
+  for intMesec := 1 to 12 do
+  begin
+    if dicIzvestaj.ContainsKey(intMesec) then
+      strTekst := Concat(strTekst, fstFormatSettings.LongMonthNames[intMesec],
+         ' - ',  IntToStr(dicIzvestaj[intMesec]), #13);
+  end;
+
+
+
+  dicIzvestaj.Destroy;
+
+  MessageDlg(strTekst, mtInformation,
+      [mbOk], 0, mbOk);
+end;
+
 procedure TfrmMain.btnIzvestaj4Click(Sender: TObject);
 var
   strTekst : String;
@@ -147,7 +199,7 @@ var
   oblIzvestaj : TObjectList<TRodjendan>;
 begin
   strTekst := '';
-  oblIzvestaj := rdmRodjendanManager.izvestajNajmladji;
+  oblIzvestaj := rdmRodjendanManager.izvestajNajstariji;
   for rdjTmp in oblIzvestaj do
     strTekst := Concat(strTekst, rdjTmp.toString, ' - ',
          IntToStr(YearsBetween(TDateTime.Today, rdjTmp.getDatum)), #13);

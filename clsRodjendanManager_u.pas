@@ -29,6 +29,8 @@ type
     function getdicRodjendani() : TDictionary<Integer, TRodjendan>;
     function izvestajNajstariji() : TObjectList<TRodjendan>;
     function izvestajNajmladji() : TObjectList<TRodjendan>;
+    function izvestajMesecMax() : TDictionary<Byte, Integer>;
+    function izvestajMesecMin() : TDictionary<Byte, Integer>;
 
 end;
 
@@ -101,6 +103,62 @@ begin
   Result := Self.dicRodjendani;
 end;
 
+function TRodjendanManager.izvestajMesecMax: TDictionary<Byte, Integer>;
+var
+  I: Integer;
+  dicIzvesatj : TDictionary<Byte, Integer>;
+  rdjTmp : TRodjendan;
+  intMax : Integer;
+begin
+  dicIzvesatj := TDictionary<Byte, Integer>.Create;
+
+  for I := 1 to 12 do
+    dicIzvesatj.Add(I, 0);
+
+  for rdjTmp in dicRodjendani.Values do
+    dicIzvesatj[MonthOf(rdjTmp.getDatum)] := dicIzvesatj[MonthOf(rdjTmp.getDatum)] + 1;
+
+  intMax := MaxIntValue(dicIzvesatj.Values.ToArray);
+
+  for I in dicIzvesatj.Keys do
+  begin
+    if dicIzvesatj[I] < intMax then
+    begin
+      dicIzvesatj.Remove(I);
+    end;
+  end;
+
+  Result := dicIzvesatj;
+end;
+
+function TRodjendanManager.izvestajMesecMin: TDictionary<Byte, Integer>;
+var
+  I: Integer;
+  dicIzvesatj : TDictionary<Byte, Integer>;
+  rdjTmp : TRodjendan;
+  intMin : Integer;
+begin
+  dicIzvesatj := TDictionary<Byte, Integer>.Create;
+
+  for I := 1 to 12 do
+    dicIzvesatj.Add(I, 0);
+
+  for rdjTmp in dicRodjendani.Values do
+    dicIzvesatj[MonthOf(rdjTmp.getDatum)] := dicIzvesatj[MonthOf(rdjTmp.getDatum)] + 1;
+
+  intMin := MinIntValue(dicIzvesatj.Values.ToArray);
+
+  for I in dicIzvesatj.Keys do
+  begin
+    if dicIzvesatj[I] > intMin then
+    begin
+      dicIzvesatj.Remove(I);
+    end;
+  end;
+
+  Result := dicIzvesatj;
+end;
+
 function TRodjendanManager.izvestajNajmladji: TObjectList<TRodjendan>;
 var
   oblRetList : TObjectList<TRodjendan>;
@@ -164,6 +222,7 @@ begin
   tfsDateFormat := TFormatSettings.Create;
   tfsDateFormat.ShortDateFormat := 'dd/mm/yyyy';
   Self.dicRodjendani.Clear;
+  Self.intNextId := 1;
   try
     while not sreStreamReader.EndOfStream do
     begin
@@ -176,7 +235,8 @@ begin
         StrToDate(arrParts[2], tfsDateFormat)));
     end;
 
-    Self.intNextId := (MaxIntValue(Self.dicRodjendani.Keys.ToArray)) + 1;
+    if Self.dicRodjendani.Count <> 0 then
+      Self.intNextId := (MaxIntValue(Self.dicRodjendani.Keys.ToArray)) + 1;
 
   finally
     sreStreamReader.Free;

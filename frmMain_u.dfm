@@ -134,7 +134,7 @@ object frmMain: TfrmMain
       object cldCalendar: TCalendarView
         Left = 39
         Top = 41
-        Date = 45127.000000000000000000
+        Date = -700000.000000000000000000
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -20
@@ -219,7 +219,7 @@ object frmMain: TfrmMain
           Left = 145
           Top = 86
           Width = 185
-          Date = 45127.000000000000000000
+          Date = 45130.000000000000000000
           DateFormat = 'dd/mm/yyyy'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -381,6 +381,7 @@ object frmMain: TfrmMain
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 0
+          OnClick = btnIzvestaj1Click
         end
         object btnIzvestaj2: TButton
           Left = 247
@@ -390,6 +391,7 @@ object frmMain: TfrmMain
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 1
+          OnClick = btnIzvestaj2Click
         end
         object btnIzvsetaj3: TButton
           Left = 247
