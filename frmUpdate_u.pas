@@ -30,6 +30,7 @@ var
   frmUpdate : TfrmUpdate;
   rdmRodjendanManagerRef : TRodjendanManager;
   strOsoba : String;
+  blnNeedUpdate : Boolean;
 implementation
 
 uses System.DateUtils, clsRodjendan_u;
@@ -59,7 +60,7 @@ end;
 
 procedure TfrmUpdate.FormShow(Sender: TObject);
 begin
-  Self.edtOsobaUpdate.Text := strOsoba;;
+  Self.edtOsobaUpdate.Text := strOsoba;
   dtpRodjendanUpdate.Date := rdmRodjendanManagerRef.find(strOsoba).getDatum;
 end;
 

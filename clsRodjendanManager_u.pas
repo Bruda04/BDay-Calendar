@@ -26,6 +26,7 @@ type
     function find(intId : Integer) : TRodjendan; overload;
     function find(strOsoba : String) : TRodjendan; overload;
     procedure find(dteDatum : TDate; oblRodjendani : TObjectList<TRodjendan>); overload;
+    procedure findByMonth(bteMesec : Byte; oblRodjendani : TObjectList<TRodjendan>); overload;
     function getdicRodjendani() : TDictionary<Integer, TRodjendan>;
     function izvestajNajstariji() : TObjectList<TRodjendan>;
     function izvestajNajmladji() : TObjectList<TRodjendan>;
@@ -94,6 +95,18 @@ begin
     if (DayOf(dteDatum) = DayOf(rdjRodjendanTmp.getDatum()))
       AND (MonthOf(dteDatum) = MonthOf(rdjRodjendanTmp.getDatum()))
       AND (rdjRodjendanTmp.getDatum < dteDatum) then
+      oblRodjendani.Add(rdjRodjendanTmp)
+  end;
+end;
+
+procedure TRodjendanManager.findByMonth(bteMesec: Byte;
+  oblRodjendani: TObjectList<TRodjendan>);
+var
+  rdjRodjendanTmp : TRodjendan;
+begin
+  for rdjRodjendanTmp in Self.dicRodjendani.Values do
+  begin
+    if (bteMesec = MonthOf(rdjRodjendanTmp.getDatum())) then
       oblRodjendani.Add(rdjRodjendanTmp)
   end;
 end;

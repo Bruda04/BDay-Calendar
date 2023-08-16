@@ -57,6 +57,19 @@ type
     N3: TMenuItem;
     mnoIzvestaj3: TMenuItem;
     mnoIzvestaj4: TMenuItem;
+    pnlSearch: TPanel;
+    lblSearchTitle: TLabel;
+    pnlSearchText: TPanel;
+    pnlSearchAdvanced: TPanel;
+    lblDatumSearch: TLabel;
+    lblDatumSearchTitle: TLabel;
+    cboOsobaSearch: TComboBox;
+    lblOsobaSearch: TLabel;
+    lblMesecSearch: TLabel;
+    cboMesecSearch: TComboBox;
+    memRodjendaniMesec: TMemo;
+    edtFilter: TEdit;
+    lblSearchAdvanced: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure btnDodajClick(Sender: TObject);
     procedure btnIzbrisiClick(Sender: TObject);
@@ -69,6 +82,10 @@ type
     procedure mnoSaveClick(Sender: TObject);
     procedure btnIzvestaj1Click(Sender: TObject);
     procedure btnIzvestaj2Click(Sender: TObject);
+    procedure cboOsobaSearchChange(Sender: TObject);
+    procedure cboMesecSearchChange(Sender: TObject);
+    procedure mnoExitClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
     procedure refreshComboBox;
@@ -80,6 +97,7 @@ type
 var
   frmMain: TfrmMain;
   rdmRodjendanManager : TRodjendanManager;
+  blnNeedSave : Boolean;
 
 implementation
 
@@ -98,6 +116,8 @@ begin
     refreshComboBox;
     edtOsoba.Text := '';
     dtpRodjendan.Date := TDateTime.Today;
+    blnNeedSave := True;
+    Self.Caption := 'BDayCalendar - *';
     MessageDlg('Uspešno ste dodali rođendan.', TMsgDlgType.mtInformation,
         [mbOk], 0, mbOk);
   end
@@ -115,6 +135,10 @@ begin
           mtConfirmation, [mbYes, mbNo], 0, mbYes) = mrYes then
       rdmRodjendanManager.remove(cboOsobe.Items[cboOsobe.ItemIndex]);
       refreshComboBox;
+      blnNeedSave := True;
+      Self.Caption := 'BDayCalendar - *';
+      MessageDlg('Uspešno ste obrisali rođendan.', TMsgDlgType.mtInformation,
+        [mbOk], 0, mbOk);
     end
   else
     begin
@@ -134,6 +158,8 @@ begin
       frmUpdateTmp.ShowModal;
       frmUpdateTmp.Destroy;
       refreshComboBox;
+      blnNeedSave := True;
+      Self.Caption := 'BDayCalendar - *';
     end
   else
     begin
@@ -202,7 +228,7 @@ begin
   oblIzvestaj := rdmRodjendanManager.izvestajNajstariji;
   for rdjTmp in oblIzvestaj do
     strTekst := Concat(strTekst, rdjTmp.toString, ' - ',
-         IntToStr(YearsBetween(TDateTime.Today, rdjTmp.getDatum)), #13);
+         IntToStr(rdjTmp.yearsBetween(TDateTime.Today)), #13);
 
   oblIzvestaj.Destroy;
 
@@ -223,7 +249,7 @@ begin
   oblIzvestaj := rdmRodjendanManager.izvestajNajmladji;
   for rdjTmp in oblIzvestaj do
     strTekst := Concat(strTekst, rdjTmp.toString, ' - ',
-         IntToStr(YearsBetween(TDateTime.Today, rdjTmp.getDatum)), #13);
+         IntToStr(rdjTmp.yearsBetween(TDateTime.Today)), #13);
 
   oblIzvestaj.Destroy;
 
@@ -232,6 +258,43 @@ begin
 
   MessageDlg(strTekst, mtInformation,
       [mbOk], 0, mbOk);
+end;
+
+procedure TfrmMain.cboMesecSearchChange(Sender: TObject);
+var
+  oblRodjendatni : TObjectList<TRodjendan>;
+  rdjTmp : TRodjendan;
+  bytMesec : Byte;
+  strFilter : String;
+begin
+  memRodjendaniMesec.Clear;
+
+  oblRodjendatni := TObjectList<TRodjendan>.Create(False);
+
+  bytMesec := cboMesecSearch.ItemIndex + 1;
+  strFilter := LowerCase(edtFilter.Text);
+
+  rdmRodjendanManager.findByMonth(bytMesec, oblRodjendatni);
+
+  for rdjTmp in oblRodjendatni do
+  begin
+    if strFilter <> '' then
+    begin
+       if LowerCase(rdjTmp.toString).Contains(strFilter) then
+          memRodjendaniMesec.Lines.Add(rdjTmp.ToString)
+    end
+    else
+      memRodjendaniMesec.Lines.Add(rdjTmp.ToString)
+  end;
+
+  oblRodjendatni.Destroy;
+
+
+end;
+
+procedure TfrmMain.cboOsobaSearchChange(Sender: TObject);
+begin
+  lblDatumSearch.Caption := FormatDateTime('dd/mm/yyyy', rdmRodjendanManager.find(cboOsobaSearch.Items[cboOsobaSearch.ItemIndex]).getDatum);
 end;
 
 procedure TfrmMain.cldCalendarChange(Sender: TObject);
@@ -257,7 +320,7 @@ begin
       begin
         strSlavljenici := Concat(lblSlavljenik.Caption, ', ', rdjRodjendanTmp.getOsoba);
         strGodine := Concat(lblGodine.Caption, ', ',
-                IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1));
+                IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date)));
 
 
         lblSlavljenik.Caption := Concat(lblSlavljenik.Caption, '...');
@@ -267,7 +330,7 @@ begin
       begin
         strSlavljenici := Concat(strSlavljenici, ', ', rdjRodjendanTmp.getOsoba);
         strGodine := Concat(strGodine, ', ',
-                IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1));
+                IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date)));
       end
       else if intLoops < 3 then
       begin
@@ -277,10 +340,10 @@ begin
           lblSlavljenik.Caption := Concat(lblSlavljenik.Caption, ', ', rdjRodjendanTmp.getOsoba);
 
         if lblGodine.Caption = '' then
-          lblGodine.Caption :=  IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1)
+          lblGodine.Caption :=  IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date))
         else
           lblGodine.Caption := Concat(lblGodine.Caption, ', ',
-                IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1));
+                IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date)));
       end;
     end;
     MessageDlg( 'Slavljenici:' + #13 + strSlavljenici + #13 +  #13 + 'Godine:' + #13 + strGodine, mtInformation,
@@ -296,10 +359,10 @@ begin
         lblSlavljenik.Caption := Concat(lblSlavljenik.Caption, ', ', rdjRodjendanTmp.getOsoba);
 
       if lblGodine.Caption = '' then
-        lblGodine.Caption :=  IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1)
+        lblGodine.Caption :=  IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date))
       else
         lblGodine.Caption := Concat(lblGodine.Caption, ', ',
-                IntToStr(YearsBetween(rdjRodjendanTmp.getDatum, cldCalendar.Date)+1));
+                IntToStr(rdjRodjendanTmp.yearsBetween(cldCalendar.Date)));
 
     end;
   end;
@@ -307,11 +370,31 @@ begin
   oblRodjendani.Free;
 end;
 
+
+procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  if blnNeedSave then
+  begin
+    if MessageDlg('Da li želite da sačuvate izmene?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+       rdmRodjendanManager.save;
+    end;
+
+  end;
+
+end;
+
 procedure TfrmMain.FormCreate(Sender: TObject);
 begin
   rdmRodjendanManager := TRodjendanManager.Create('rodjendani.csv');
   rdmRodjendanManager.load;
+  blnNeedSave := False;
   refreshAll;
+end;
+
+procedure TfrmMain.mnoExitClick(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 procedure TfrmMain.mnoExportClick(Sender: TObject);
@@ -378,15 +461,20 @@ var
   rdjRodjendan : TRodjendan;
 begin
   cboOsobe.Clear;
+  cboOsobaSearch.Clear;
   for rdjRodjendan in rdmRodjendanManager.getdicRodjendani.Values do
-    cboOsobe.AddItem(rdjRodjendan.getOsoba, rdjRodjendan);
-
+  begin
+    cboOsobe.Items.Add (rdjRodjendan.getOsoba);
+    cboOsobaSearch.Items.Add(rdjRodjendan.getOsoba);
+  end;
 
 end;
 
 procedure TfrmMain.mnoSaveClick(Sender: TObject);
 begin
   rdmRodjendanManager.save;
+  blnNeedSave := False;
+  Self.Caption := 'BDayCalendar';
 end;
 
 end.

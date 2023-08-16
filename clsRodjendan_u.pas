@@ -19,6 +19,7 @@ type
     function toFileString() : String;
     function ToString() : String; Override;
     function getId() : Integer;
+    function yearsBetween(dteDatum : TDate) : Integer;
   end;
 
 implementation
@@ -69,6 +70,24 @@ var
 begin
   strRet := Concat(self.strOsoba, ' - ', FormatDateTime('dd/mm/yyyy', Self.dteDatum));
   Result := strRet;
+end;
+
+function TRodjendan.yearsBetween(dteDatum: TDate): Integer;
+var
+  intYears: Integer;
+  dteStartDate: TDateTime;
+  dteEndDate: TDateTime;
+begin
+  dteStartDate := Trunc(Self.dteDatum);
+  dteEndDate := Trunc(dteDatum);
+
+  intYears := YearOf(dteEndDate) - YearOf(dteStartDate);
+
+  if (MonthOf(dteEndDate) < MonthOf(dteStartDate)) or
+     ((MonthOf(dteEndDate) = MonthOf(dteStartDate)) and (DayOf(dteEndDate) < DayOf(dteStartDate))) then
+    Dec(intYears);
+
+  Result := intYears;
 end;
 
 end.

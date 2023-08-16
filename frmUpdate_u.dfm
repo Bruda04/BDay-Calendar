@@ -2,8 +2,8 @@ object frmUpdate: TfrmUpdate
   Left = 0
   Top = 0
   Caption = 'Izmena'
-  ClientHeight = 112
-  ClientWidth = 628
+  ClientHeight = 111
+  ClientWidth = 624
   Color = clGrayText
   Constraints.MaxHeight = 150
   Constraints.MaxWidth = 640
@@ -20,14 +20,12 @@ object frmUpdate: TfrmUpdate
   object pnlIzmenaMain: TPanel
     Left = 0
     Top = 0
-    Width = 628
-    Height = 112
+    Width = 624
+    Height = 111
     Align = alClient
     Color = clGrayText
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 624
-    ExplicitHeight = 118
     object lblOsoba: TLabel
       Left = 16
       Top = 16
@@ -64,7 +62,7 @@ object frmUpdate: TfrmUpdate
       Top = 13
       Width = 185
       Date = 45128.000000000000000000
-      DateFormat = 'm/d/yyyy'
+      DateFormat = 'dd/mm/yyyy'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -16
