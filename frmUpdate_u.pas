@@ -33,7 +33,7 @@ var
   blnNeedUpdate : Boolean;
 implementation
 
-uses System.DateUtils, clsRodjendan_u;
+uses System.DateUtils, clsRodjendan_u, System.UITypes;
 
 {$R *.dfm}
 

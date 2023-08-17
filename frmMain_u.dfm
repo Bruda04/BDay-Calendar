@@ -3,12 +3,12 @@ object frmMain: TfrmMain
   Top = 0
   Caption = 'BDayCalendar'
   ClientHeight = 622
-  ClientWidth = 1288
+  ClientWidth = 1258
   Color = clGrayText
-  Constraints.MaxHeight = 750
-  Constraints.MaxWidth = 1500
-  Constraints.MinHeight = 600
-  Constraints.MinWidth = 750
+  Constraints.MaxHeight = 680
+  Constraints.MaxWidth = 1270
+  Constraints.MinHeight = 680
+  Constraints.MinWidth = 1270
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWhite
   Font.Height = -17
@@ -26,7 +26,7 @@ object frmMain: TfrmMain
   object pnlTitle: TPanel
     Left = 5
     Top = 5
-    Width = 1278
+    Width = 1248
     Height = 41
     Align = alTop
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -47,7 +47,7 @@ object frmMain: TfrmMain
   object pnlCenterContent: TPanel
     Left = 5
     Top = 46
-    Width = 1278
+    Width = 1248
     Height = 571
     Align = alClient
     BevelOuter = bvNone
@@ -60,27 +60,23 @@ object frmMain: TfrmMain
     ExplicitTop = 45
     ExplicitWidth = 1274
     DesignSize = (
-      1278
+      1248
       571)
     object pnlGetter: TPanel
       Left = 0
       Top = 5
-      Width = 370
+      Width = 340
       Height = 565
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
       ParentColor = True
       TabOrder = 0
       ExplicitWidth = 366
-      DesignSize = (
-        370
-        565)
       object lblGodine: TLabel
         Left = 48
         Top = 506
         Width = 6
         Height = 31
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -23
@@ -93,7 +89,6 @@ object frmMain: TfrmMain
         Top = 469
         Width = 85
         Height = 31
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = 'Godine: '
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -107,7 +102,6 @@ object frmMain: TfrmMain
         Top = 438
         Width = 6
         Height = 31
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
         Font.Height = -23
@@ -120,7 +114,6 @@ object frmMain: TfrmMain
         Top = 401
         Width = 106
         Height = 31
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = 'Slavljenik: '
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -132,11 +125,10 @@ object frmMain: TfrmMain
       object lblGetterTitle: TLabel
         Left = 0
         Top = 0
-        Width = 370
+        Width = 340
         Height = 31
         Align = alTop
         Alignment = taCenter
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = 'Prona'#273'i ro'#273'endan'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -149,7 +141,7 @@ object frmMain: TfrmMain
       object cldCalendar: TCalendarView
         Left = 39
         Top = 41
-        Anchors = [akLeft, akTop, akRight, akBottom]
+        Width = 290
         Date = -700000.000000000000000000
         FirstDayOfWeek = dwMonday
         Font.Charset = DEFAULT_CHARSET
@@ -171,13 +163,12 @@ object frmMain: TfrmMain
         ParentFont = False
         ShowFirstOfGroupLabel = True
         TabOrder = 0
-        ExplicitWidth = 290
       end
     end
     object pnlSetter: TPanel
       Left = 370
       Top = 5
-      Width = 400
+      Width = 370
       Height = 565
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
@@ -188,7 +179,7 @@ object frmMain: TfrmMain
       object pnlAdd: TPanel
         Left = 0
         Top = 0
-        Width = 400
+        Width = 370
         Height = 185
         Align = alTop
         Anchors = [akLeft, akTop, akRight, akBottom]
@@ -198,15 +189,11 @@ object frmMain: TfrmMain
         ShowCaption = False
         TabOrder = 0
         ExplicitWidth = 396
-        DesignSize = (
-          400
-          185)
         object lblDatumRodjenja: TLabel
           Left = 11
           Top = 90
           Width = 119
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Datum ro'#273'enja:'
         end
         object lblOsoba: TLabel
@@ -214,17 +201,15 @@ object frmMain: TfrmMain
           Top = 44
           Width = 53
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Osoba:'
         end
         object lblSetterTitle: TLabel
           Left = 0
           Top = 0
-          Width = 400
+          Width = 370
           Height = 31
           Align = alTop
           Alignment = taCenter
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Zabele'#382'i ro'#273'endan'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -237,19 +222,16 @@ object frmMain: TfrmMain
         object btnDodaj: TButton
           Left = 223
           Top = 129
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Zabele'#382'i'
           TabOrder = 0
           OnClick = btnDodajClick
-          ExplicitWidth = 103
         end
         object dtpRodjendan: TDatePicker
           Left = 145
           Top = 86
-          Width = 185
-          Anchors = [akLeft, akTop, akRight, akBottom]
+          Width = 181
           Date = 45130.000000000000000000
           DateFormat = 'dd/mm/yyyy'
           Font.Charset = DEFAULT_CHARSET
@@ -258,14 +240,12 @@ object frmMain: TfrmMain
           Font.Name = 'Segoe UI'
           Font.Style = []
           TabOrder = 1
-          ExplicitWidth = 181
         end
         object edtOsoba: TEdit
           Left = 145
           Top = 41
-          Width = 185
+          Width = 181
           Height = 31
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -17
@@ -275,13 +255,12 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 2
           TextHint = 'Ime i prezime osobe'
-          ExplicitWidth = 181
         end
       end
       object pnlRemoveUpdate: TPanel
         Left = 0
         Top = 185
-        Width = 400
+        Width = 370
         Height = 152
         Align = alClient
         BevelOuter = bvNone
@@ -290,17 +269,13 @@ object frmMain: TfrmMain
         ShowCaption = False
         TabOrder = 1
         ExplicitWidth = 396
-        DesignSize = (
-          400
-          152)
         object lblRemoveUpdateTitle: TLabel
           Left = 0
           Top = 0
-          Width = 400
+          Width = 370
           Height = 31
           Align = alTop
           Alignment = taCenter
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Izbri'#353'i/Izmeni ro'#273'endan'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -315,16 +290,14 @@ object frmMain: TfrmMain
           Top = 44
           Width = 53
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Osoba:'
         end
         object cboOsobe: TComboBox
           Left = 145
           Top = 41
-          Width = 184
+          Width = 180
           Height = 31
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight, akBottom]
           DropDownCount = 10
           DropDownWidth = 185
           Font.Charset = DEFAULT_CHARSET
@@ -337,37 +310,32 @@ object frmMain: TfrmMain
           Sorted = True
           TabOrder = 0
           TextHint = 'Izaberite osobu'
-          ExplicitWidth = 180
         end
         object btnIzbrisi: TButton
           Left = 223
           Top = 86
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Izbri'#353'i'
           TabOrder = 1
           OnClick = btnIzbrisiClick
-          ExplicitWidth = 103
         end
         object btnIzmeni: TButton
           Left = 103
           Top = 86
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Izmeni'
           TabOrder = 2
           OnClick = btnIzmeniClick
-          ExplicitWidth = 103
         end
       end
       object pnlIzvestaji: TPanel
         Left = 0
         Top = 337
-        Width = 400
+        Width = 370
         Height = 228
         Align = alBottom
         Anchors = [akLeft, akTop, akRight, akBottom]
@@ -377,17 +345,13 @@ object frmMain: TfrmMain
         ShowCaption = False
         TabOrder = 2
         ExplicitWidth = 396
-        DesignSize = (
-          400
-          228)
         object lblIzvestajiTitle: TLabel
           Left = 0
           Top = 0
-          Width = 400
+          Width = 370
           Height = 31
           Align = alTop
           Alignment = taCenter
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Izve'#353'taji'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -402,7 +366,6 @@ object frmMain: TfrmMain
           Top = 47
           Width = 213
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Mesec sa najvi'#353'e ro'#273'endana'
         end
         object lblIzvestaj2: TLabel
@@ -410,7 +373,6 @@ object frmMain: TfrmMain
           Top = 88
           Width = 232
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Mesec sa najmanje ro'#273'endana'
         end
         object lblIzvestaj3: TLabel
@@ -418,7 +380,6 @@ object frmMain: TfrmMain
           Top = 128
           Width = 124
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Najmla'#273'e osobe'
         end
         object lblIzvestaj4: TLabel
@@ -426,63 +387,54 @@ object frmMain: TfrmMain
           Top = 168
           Width = 122
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Najstarije osobe'
         end
         object btnIzvestaj1: TButton
           Left = 249
           Top = 46
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 0
           OnClick = btnIzvestaj1Click
-          ExplicitWidth = 103
         end
         object btnIzvestaj2: TButton
           Left = 249
           Top = 87
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 1
           OnClick = btnIzvestaj2Click
-          ExplicitWidth = 103
         end
         object btnIzvsetaj3: TButton
           Left = 249
           Top = 126
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 2
           OnClick = btnIzvsetaj3Click
-          ExplicitWidth = 103
         end
         object btnIzvestaj4: TButton
           Left = 249
           Top = 166
-          Width = 107
+          Width = 103
           Height = 25
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Cancel = True
           Caption = 'Generi'#353'i'
           TabOrder = 3
           OnClick = btnIzvestaj4Click
-          ExplicitWidth = 103
         end
       end
     end
     object pnlSearch: TPanel
       Left = 800
       Top = 5
-      Width = 450
+      Width = 420
       Height = 555
       Anchors = [akLeft, akTop, akRight, akBottom]
       BevelOuter = bvNone
@@ -493,11 +445,10 @@ object frmMain: TfrmMain
       object lblSearchTitle: TLabel
         Left = 0
         Top = 0
-        Width = 450
+        Width = 420
         Height = 31
         Align = alTop
         Alignment = taCenter
-        Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = 'Pretraga'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWhite
@@ -510,8 +461,8 @@ object frmMain: TfrmMain
       object pnlSearchText: TPanel
         Left = 0
         Top = 31
-        Width = 450
-        Height = 210
+        Width = 420
+        Height = 110
         Align = alTop
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelOuter = bvNone
@@ -520,15 +471,11 @@ object frmMain: TfrmMain
         ShowCaption = False
         TabOrder = 0
         ExplicitWidth = 446
-        DesignSize = (
-          450
-          210)
         object lblDatumSearch: TLabel
           Left = 155
           Top = 52
           Width = 6
           Height = 31
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -23
@@ -541,7 +488,6 @@ object frmMain: TfrmMain
           Top = 52
           Width = 109
           Height = 31
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Ro'#273'endan:'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -555,16 +501,14 @@ object frmMain: TfrmMain
           Top = 15
           Width = 53
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Osoba:'
         end
         object cboOsobaSearch: TComboBox
           Left = 105
           Top = 12
-          Width = 184
+          Width = 180
           Height = 31
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight, akBottom]
           DropDownCount = 10
           DropDownWidth = 185
           Font.Charset = DEFAULT_CHARSET
@@ -578,13 +522,12 @@ object frmMain: TfrmMain
           TabOrder = 0
           TextHint = 'Izaberite osobu'
           OnChange = cboOsobaSearchChange
-          ExplicitWidth = 180
         end
       end
       object pnlSearchAdvanced: TPanel
         Left = 0
         Top = 144
-        Width = 450
+        Width = 420
         Height = 411
         Align = alBottom
         Anchors = [akLeft, akTop, akRight, akBottom]
@@ -594,25 +537,20 @@ object frmMain: TfrmMain
         ShowCaption = False
         TabOrder = 1
         ExplicitWidth = 446
-        DesignSize = (
-          450
-          411)
         object lblMesecSearch: TLabel
           Left = 37
           Top = 75
           Width = 52
           Height = 23
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Mesec:'
         end
         object lblSearchAdvanced: TLabel
           Left = 0
           Top = 0
-          Width = 450
+          Width = 420
           Height = 31
           Align = alTop
           Alignment = taCenter
-          Anchors = [akLeft, akTop, akRight, akBottom]
           Caption = 'Pregled po mesecima'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -625,10 +563,9 @@ object frmMain: TfrmMain
         object cboMesecSearch: TComboBox
           Left = 105
           Top = 72
-          Width = 184
+          Width = 180
           Height = 31
           Style = csDropDownList
-          Anchors = [akLeft, akTop, akRight, akBottom]
           DropDownCount = 10
           DropDownWidth = 185
           Font.Charset = DEFAULT_CHARSET
@@ -654,7 +591,6 @@ object frmMain: TfrmMain
             'Oktobar'
             'Novembar'
             'Decembar')
-          ExplicitWidth = 180
         end
         object memRodjendaniMesec: TMemo
           Left = 37
@@ -727,9 +663,11 @@ object frmMain: TfrmMain
       Caption = 'Reports'
       object mnoIzvestaj1: TMenuItem
         Caption = 'Mesec sa najvi'#353'e ro'#273'endana'
+        OnClick = btnIzvestaj1Click
       end
       object mnoIzvestaj2: TMenuItem
         Caption = 'Mesec sa najmanje ro'#273'endana'
+        OnClick = btnIzvestaj2Click
       end
       object N3: TMenuItem
         Caption = '-'
