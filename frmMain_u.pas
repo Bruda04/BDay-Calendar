@@ -118,8 +118,10 @@ begin
     dtpRodjendan.Date := TDateTime.Today;
     blnNeedSave := True;
     Self.Caption := 'BDayCalendar - *';
+    Self.refreshAll;
     MessageDlg('Uspešno ste dodali rođendan.', TMsgDlgType.mtInformation,
         [mbOk], 0, mbOk);
+
   end
   else
     MessageDlg('Morate uneti ime i prezime osobe!', mtError,
@@ -137,6 +139,7 @@ begin
       refreshComboBox;
       blnNeedSave := True;
       Self.Caption := 'BDayCalendar - *';
+      Self.refreshAll;
       MessageDlg('Uspešno ste obrisali rođendan.', TMsgDlgType.mtInformation,
         [mbOk], 0, mbOk);
     end
@@ -160,6 +163,7 @@ begin
       refreshComboBox;
       blnNeedSave := True;
       Self.Caption := 'BDayCalendar - *';
+      Self.refreshAll;
     end
   else
     begin
@@ -453,7 +457,9 @@ begin
   Self.refreshComboBox;
   cldCalendar.Date := TDateTime.Today;
   dtpRodjendan.Date := TDateTime.Today;
-  Self.cldCalendarChange(self)
+  Self.cldCalendarChange(Self);
+  cboMesecSearch.ItemIndex := MonthOf(TDateTime.Today) - 1;
+  Self.cboMesecSearchChange(Self)
 end;
 
 procedure TfrmMain.refreshComboBox;
